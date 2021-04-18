@@ -1,6 +1,7 @@
 package com.example.examen
 
 
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.view.KeyEvent
@@ -10,6 +11,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.AutoCompleteTextView
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.examen.adapters.ProductsAdapter
 import com.example.examen.conection.HttpClass
@@ -90,10 +92,12 @@ class MainActivity : AppCompatActivity() {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+
+        if(item.itemId==R.id.action_hist){
+            var intent: Intent = Intent(this@MainActivity, historySearchActivity::class.java)
+            startActivity(intent)
         }
+        return true
     }
 
     fun hideKeyboard(view: View) {
@@ -208,6 +212,8 @@ class MainActivity : AppCompatActivity() {
 
 
 
+            }else{
+                Toast.makeText(this@MainActivity,"Error favor de intentar nuevamente",Toast.LENGTH_LONG).show()
             }
         }
     }
