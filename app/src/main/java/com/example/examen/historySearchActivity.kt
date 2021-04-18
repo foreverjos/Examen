@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.examen.adapters.HistoryAdapter
 import com.example.examen.adapters.ProductsAdapter
 import com.example.examen.models.HistorySearchModel
@@ -48,7 +49,7 @@ class historySearchActivity  : AppCompatActivity(){
         supportActionBar!!.setHomeAsUpIndicator(drawable)
         supportActionBar!!.setTitle("Historico de consultas")
 
-        var res = realm.where<HistorySearchModel>().sort("text", Sort.ASCENDING).findAll()
+        var res = realm.where<HistorySearchModel>().sort("date", Sort.DESCENDING).findAll()
         var hist: java.util.ArrayList<HistorySearchModel>  = java.util.ArrayList()
 
         if (res.size > 0) {
@@ -58,6 +59,7 @@ class historySearchActivity  : AppCompatActivity(){
         var historyAdapter  = object : HistoryAdapter(this, hist) {}
 
         rcvLista.apply {
+            layoutManager = LinearLayoutManager(this@historySearchActivity)
             setHasFixedSize(true)
             adapter = historyAdapter
         }

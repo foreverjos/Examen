@@ -197,7 +197,7 @@ class MainActivity : AppCompatActivity() {
 
                 realm.beginTransaction()
                 var busq=HistorySearchModel()
-                busq.date=dameFecha()
+                busq.date=getDate()
                 busq.text=edtSearch.editText!!.text.toString()
                 realm.insert(busq)
                 realm.commitTransaction()
@@ -239,28 +239,43 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun dameFecha(): String {
+    fun getDate(): String {
         val date = Date()
-        val fecha: String
+        var Fecha: String
         val calendar: Calendar
         val mes: Int
         val anu: Int
         val dia: Int
+        val hora: Int
+        val min: Int
+        val seg: Int
 
         calendar = Calendar.getInstance(Locale.getDefault())
         calendar.time = date
         mes = calendar.get(Calendar.MONTH) + 1
         anu = calendar.get(Calendar.YEAR)
         dia = calendar.get(Calendar.DAY_OF_MONTH)
+        hora = calendar.get(Calendar.HOUR_OF_DAY)
+        min = calendar.get(Calendar.MINUTE)
+        seg = calendar.get(Calendar.SECOND)
 
-        var smes = mes.toString() + ""
-        var sdia = dia.toString() + ""
+        var smes = mes.toString()
+        var sdia = dia.toString()
+
+        var shora=hora.toString()
+        var smin = min.toString()
+        var sseg = seg.toString()
+
 
         if (mes < 10) smes = "0$mes"
         if (dia < 10) sdia = "0$dia"
 
-        fecha = "$anu-$smes-$sdia"
-        return fecha
+        if (hora < 10) shora = "0$shora"
+        if (min < 10) smin = "0$smin"
+        if (seg < 10) sseg = "0$sseg"
+
+        Fecha = "$anu-$smes-$sdia $shora:$smin:$sseg"
+        return Fecha
     }
 
 }
